@@ -45,8 +45,8 @@ function equalizeSizes(){
   textarea.style.height  = h-t    + 'px';
   textarea.style.top     = t-10   + 'px';
   textarea.style.padding = '10px';
-  preview.style.width    = w-40   + 'px';
-  preview.style.height   = h-t-10 + 'px';
+  preview.style.width    = w      + 'px';
+  preview.style.height   = h      + 'px';
   preview.style.padding  = '10px;';
 }
 

@@ -10,6 +10,7 @@ And it also works offline, so you don't need to have an internet connection to u
 
 For the markdown preview, it uses [`marked`](https://github.com/chjj/marked), a markdown parser in JavaScript.
 
+[Access the webapp](http://danielfilho.github.com/mditor)
 
 
 [MIT License](http://daniel.mit-license.org/)

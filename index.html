@@ -1,0 +1,33 @@
+<!doctype html>
+<html manifest="manifest.appcache">
+  <head>
+    <title>mditor - Markdown Editor with local data persistence</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <div class="toolbar">
+      <p class="documentName">Untitled document</p>
+      <a href="#" id="btn_New">New</a>
+      <a href="#" id="btn_Clear">Clear</a>
+      <i class="separator"></i>
+      <a href="#" id="btn_Preview">Preview</a>
+      <i class="separator"></i>
+      <a href="#" id="btn_TM">T –</a>
+      <a href="#" id="btn_TDefault">T</a>
+      <a href="#" id="btn_TP">T +</a>
+    </div>
+
+    <textarea class="markdown" placeholder="Enter your markdown text here"></textarea>
+
+    <div class="preview">
+      <div class="content"></div>
+      <div class="closeit">
+        <a href="#" id="btn_Close">&times;</a>
+      </div>
+    </div>
+
+    <script src="scripts/marked.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>

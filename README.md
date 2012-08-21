@@ -1,6 +1,6 @@
 #mditor
 
-mditor is a simple and straightforward online markdown editor, made to work with mobile webkit (focusing on tablets).
+mditor is a simple and straightforward online markdown editor, focusing on tablet computers.
 
 Its focus is to make easy to create and edit information based on [markdown](http://en.wikipedia.org/wiki/Markdown) templating.
 

@@ -17,6 +17,7 @@ function init(){
 function setListeners(){
   var textarea    = document.querySelector('.markdown'),
       btnNew      = document.querySelector('#btn_New'),
+      btnOpen     = document.querySelector('#btn_Open'),
       btnPreview  = document.querySelector('#btn_Preview'),
       btnClear    = document.querySelector('#btn_Clear'),
       btnClose    = document.querySelector('#btn_Close'),
@@ -26,6 +27,7 @@ function setListeners(){
 
   textarea.addEventListener('keyup', keyPressed, false);
   btnNew.addEventListener('click', newDocument, false);
+  btnOpen.addEventListener('click', openList, false);
   btnClear.addEventListener('click', clearText, false);
   btnPreview.addEventListener('click', previewModal, false);
   btnClose.addEventListener('click', previewModal, false);
@@ -41,19 +43,20 @@ function equalizeSizes(){
       h        = document.body.offsetHeight,
       t        = 60;
 
-  textarea.style.width   = w-10   + 'px';
-  textarea.style.height  = h-t    + 'px';
-  textarea.style.top     = t-10   + 'px';
+  textarea.style.width   = w-10 + 'px';
+  textarea.style.height  = h-t  + 'px';
+  textarea.style.top     = t-10 + 'px';
   textarea.style.padding = '10px';
-  preview.style.width    = w      + 'px';
-  preview.style.height   = h      + 'px';
+  preview.style.width    = w + 'px';
+  preview.style.height   = h + 'px';
   preview.style.padding  = '10px;';
 }
 
 function keyPressed(){
-  var textarea = document.querySelector('.markdown').value,
+  var docID    = 'doc' + window.sessionStorage.getItem('timestamp'),
+      textarea = document.querySelector('.markdown').value,
       docName  = document.querySelector('.documentName').innerHTML;
-  saveDocument(docName, textarea);
+  saveDocument(window.sessionStorage.getItem('timestamp'));
 }
 
 
@@ -65,15 +68,44 @@ function askFileName(){
     document.querySelector('.documentName').innerHTML = documentName;
     document.querySelector('.markdown').focus();
     document.querySelector('.markdown').value = '# '+ documentName + '\n';
-    saveDocument(documentName);
+    saveNewDocument(documentName, document.querySelector('.markdown').value);
   } else {
-    loadDocument();
+    openLocal();
   }
 }
 
 function newDocument(e){
   e.preventDefault();
   askFileName();
+}
+
+function openList(e){
+  e.preventDefault();
+  openLocal();
+}
+
+function openLocal(){
+  var docList  = document.querySelector('.openLocal'),
+      thisDoc  = '',
+      tableRow = '',
+      tableH   = '',
+      tableF   = '';
+  docList.style.display = 'block';
+
+  tableH = '<table width="100%">' +
+           '<tr><th>Document title</th></tr>';
+  tableF = '</table>';
+
+  for (var i=0; i < localStorage.length; i++){
+    thisDoc  = 'doc' + JSON.parse(localStorage.getItem(localStorage.key(i))).createdAt,
+    tableRow = tableRow +
+               '<tr>'+
+                 '<td onclick=\'loadDocument("'+ thisDoc +'")\'>'+ JSON.parse(localStorage.getItem(localStorage.key(i))).title +'</td>'+
+               '</tr>';
+  }
+
+  docList.innerHTML = tableH + tableRow + tableF;
+
 }
 
 // Preview in HTML the markdown code
@@ -115,21 +147,40 @@ function fontSizeDefault(e){
 }
 
 // File things
-function saveDocument(docName, content){
-  var timestamp = new Date();
-
-  window.localStorage.setItem('createdAt', timestamp);
-  window.localStorage.setItem('documentName', docName);
-  window.localStorage.setItem('content', content);
+function saveDocument(docID){
+  var timestamp   = window.sessionStorage.getItem('timestamp'),
+      content     = document.querySelector('.markdown').value,
+      docName     = document.querySelector('.documentName').innerHTML,
+      theDocument = {
+        createdAt : timestamp,
+        title     : docName,
+        content   : content
+      };
+  window.localStorage.setItem('doc'+timestamp, JSON.stringify(theDocument));
 }
-function loadDocument(){
-  var savedCreated = window.localStorage.getItem('createdAt'),
-      savedName    = window.localStorage.getItem('documentName'),
-      savedContent = window.localStorage.getItem('content');
-
-      document.querySelector('.markdown').value = (savedContent);
-      document.querySelector('.documentName').innerHTML = savedName;
+function saveNewDocument(docName, content){
+  var timestamp = new Date().getTime(),
+      theDocument = {
+        createdAt : timestamp,
+        title     : docName,
+        content   : content
+      };
+  window.sessionStorage.setItem('timestamp', timestamp);
+  window.localStorage.setItem('doc'+timestamp, JSON.stringify(theDocument));
 }
+function loadDocument(docID){
+  var docInfo   = window.localStorage.getItem(docID),
+      docList   = document.querySelector('.openLocal');
+      timestamp = JSON.parse(docInfo).createdAt,
+      title     = JSON.parse(docInfo).title,
+      content   = JSON.parse(docInfo).content;
+
+  document.querySelector('.markdown').value = (content);
+  document.querySelector('.documentName').innerHTML = title;
+  window.sessionStorage.setItem('timestamp', timestamp);
+  docList.style.display = 'none';
+}
+
 function clearText(e){
   e.preventDefault();
 

@@ -1,5 +1,6 @@
 <!doctype html>
-<html manifest="manifest.appcache">
+<html>
+<!-- <html manifest="manifest.appcache"> -->
   <head>
     <title>mditor - Markdown Editor with local data persistence</title>
     <meta charset="utf-8">
@@ -8,14 +9,16 @@
   <body>
     <div class="toolbar">
       <p class="documentName">Untitled document</p>
-      <a href="#" id="btn_New">New</a>
-      <a href="#" id="btn_Clear">Clear</a>
+      <a href="#" title="New Document" id="btn_New"><i class="icon-doc"></i></a>
+      <a href="#" title="Open" id="btn_Open"><i class="icon-folder"></i></a>
+      <a href="#" title="Clear" id="btn_Clear"><i class="icon-cancel-circle"></i></a>
+      <!-- <a href="#" title="Sync" id="btn_Sync"><i class="icon-loop"></i></a> -->
       <i class="separator"></i>
-      <a href="#" id="btn_Preview">Preview</a>
+      <a href="#" title="Preview" id="btn_Preview"> <i class="icon-eye"></i></a>
       <i class="separator"></i>
-      <a href="#" id="btn_TM">T –</a>
-      <a href="#" id="btn_TDefault">T</a>
-      <a href="#" id="btn_TP">T +</a>
+      <a href="#" title="Bigger Font Size" id="btn_TM"><i class="icon-minus"></i></a>
+      <a href="#" title="Default Font Size" id="btn_TDefault"><i class="icon-font"></i></a>
+      <a href="#" tittle="Smaller Font Size" id="btn_TP"><i class="icon-plus"></i></a>
     </div>
 
     <textarea class="markdown" placeholder="Enter your markdown text here"></textarea>
@@ -26,6 +29,8 @@
         <a href="#" id="btn_Close">&times;</a>
       </div>
     </div>
+
+    <div class="openLocal"></div>
 
     <script src="scripts/marked.js"></script>
     <script src="scripts/app.js"></script>

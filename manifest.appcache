@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# version 0.1.15
+# version 0.2
 
 CACHE:
 # markup
@@ -11,3 +11,9 @@ scripts/marked.js
 
 # stylesheet
 css/styles.css
+
+# fonts
+css/fontello.eot
+css/fontello.svg
+css/fontello.ttf
+css/fontello.woff

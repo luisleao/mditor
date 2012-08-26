@@ -3,15 +3,15 @@
 })();
 
 function init(){
+  setListeners();
+  askFileName();
+  equalizeSizes();
+
   marked.setOptions({
     gfm: true,
     pedantic: false,
     sanitize: true
   });
-
-  setListeners();
-  askFileName();
-  equalizeSizes();
 }
 
 function setListeners(){

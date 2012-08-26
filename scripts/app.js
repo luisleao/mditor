@@ -95,8 +95,8 @@ function openLocal(){
       tableH   = '',
       tableF   = '';
 
-  tableH = '<table>' +
-           '<tr><th>Document title</th></tr>';
+  tableH = '<table cellspacing="0">' +
+           '<tr><th colspan="2">Document list</th></tr>';
   tableF = '</table>';
 
   for (var i=0; i < localStorage.length; i++){
@@ -104,13 +104,11 @@ function openLocal(){
     tableRow = tableRow +
                '<tr class="document">'+
                  '<td onclick=\'loadDocument("'+ thisDoc +'")\'>'+ JSON.parse(localStorage.getItem(localStorage.key(i))).title +'</td>'+
+                 '<td class="del" onclick=\'deleteDocument("'+ thisDoc +'")\'>&times;</td>'+
                '</tr>';
   }
-
   docList.innerHTML = tableH + tableRow + tableF;
-
-  docList.style.top = '10px';
-
+  docList.style.top = '0';
 }
 
 // Preview in HTML the markdown code
@@ -177,6 +175,17 @@ function saveNewDocument(docName, content){
       };
   window.sessionStorage.setItem('timestamp', timestamp);
   window.localStorage.setItem('doc'+timestamp, JSON.stringify(theDocument));
+}
+function deleteDocument(docID){
+  var sureDel = confirm('Are you sure you want to delete this document?');
+  if(sureDel === true){
+    window.localStorage.removeItem(docID);
+  } else {
+    return false;
+  }
+
+  openLocal();
+
 }
 function loadDocument(docID){
   var docInfo   = window.localStorage.getItem(docID),

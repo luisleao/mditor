@@ -45,10 +45,12 @@ function equalizeSizes(){
 
   textarea.style.width   = w-10 + 'px';
   textarea.style.height  = h-t  + 'px';
-  textarea.style.top     = t-10 + 'px';
+  textarea.style.top     = t    + 'px';
   textarea.style.padding = '10px';
-  preview.style.width    = w + 'px';
-  preview.style.height   = h + 'px';
+  preview.style.top      = '-'+ (h + 50) + 'px';
+  preview.style.width    = w  + 'px';
+  preview.style.height   = h  + 'px';
+  preview.style.display  = 'block';
   preview.style.padding  = '10px;';
 }
 
@@ -62,7 +64,7 @@ function keyPressed(){
 
 // Actions
 function askFileName(){
-  var documentName = prompt('Name the new document or cancel to load the last one.');
+  var documentName = prompt('Give your document a name');
 
   if(documentName){
     document.querySelector('.documentName').innerHTML = documentName;
@@ -70,7 +72,7 @@ function askFileName(){
     document.querySelector('.markdown').value = '# '+ documentName + '\n';
     saveNewDocument(documentName, document.querySelector('.markdown').value);
   } else {
-    openLocal();
+    return false;
   }
 }
 
@@ -92,14 +94,14 @@ function openLocal(){
       tableF   = '';
   docList.style.display = 'block';
 
-  tableH = '<table width="100%">' +
+  tableH = '<table>' +
            '<tr><th>Document title</th></tr>';
   tableF = '</table>';
 
   for (var i=0; i < localStorage.length; i++){
     thisDoc  = 'doc' + JSON.parse(localStorage.getItem(localStorage.key(i))).createdAt,
     tableRow = tableRow +
-               '<tr>'+
+               '<tr class="document">'+
                  '<td onclick=\'loadDocument("'+ thisDoc +'")\'>'+ JSON.parse(localStorage.getItem(localStorage.key(i))).title +'</td>'+
                '</tr>';
   }
@@ -115,13 +117,18 @@ function previewModal(e){
   var preview        = document.querySelector('.preview'),
       previewContent = document.querySelector('.preview .content'),
       textarea       = document.querySelector('.markdown');
+      btnClose       = document.querySelector('.closeit');
 
   previewContent.innerHTML = marked(textarea.value);
 
-  if(preview.style.display == 'block'){
-    preview.style.display = 'none';
+  if(preview.style.top !== '0' && preview.style.top !== '0px'){
+    // preview.style.display = 'block';
+    preview.style.top = '0';
+    btnClose.style.top = '.5em';
   } else {
-    preview.style.display = 'block';
+    // preview.style.display = 'none';
+    preview.style.top = '-'+ (document.body.offsetHeight + 50) +'px';
+    btnClose.style.top = '-50em';
   }
 }
 

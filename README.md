@@ -12,5 +12,11 @@ For the markdown preview, it uses [`marked`](https://github.com/chjj/marked), a 
 
 [Access the webapp](http://danielfilho.github.com/mditor)
 
+## Features:
+* It works offline (appCache)
+* Store multiple files also offline (localStorage)
+* Control the text size
+* Amazing features to come (check the "Issues" for complete backlog)
+
 
 [MIT License](http://daniel.mit-license.org/)

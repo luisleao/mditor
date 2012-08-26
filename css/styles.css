@@ -97,6 +97,7 @@ body{
 .preview{
   position:absolute;
   display:none;
+  top:0;
   left:0;
   padding:1em;
   font:normal 1em Helvetica, Arial, sans-serif;
@@ -136,7 +137,6 @@ body{
 }
 
 .openLocal{
-  display: none;
   position:absolute;
   top:0;
   left:0;
@@ -144,6 +144,11 @@ body{
   height:100%;
   z-index:2;
   background:#FFF;
+  -webkit-transition:top 1s ease;
+  -moz-transition:top 1s ease;
+  -ms-transition:top 1s ease;
+  -o-transition:top 1s ease;
+  transition:top 1s ease;
 }
 .openLocal table{
   min-width:900px;

@@ -39,6 +39,7 @@ function setListeners(){
 function equalizeSizes(){
   var preview  = document.querySelector('.preview'),
       textarea = document.querySelector('.markdown'),
+      docList  = document.querySelector('.openLocal'),
       w        = document.body.offsetWidth,
       h        = document.body.offsetHeight,
       t        = 60;
@@ -52,6 +53,7 @@ function equalizeSizes(){
   preview.style.height   = h  + 'px';
   preview.style.display  = 'block';
   preview.style.padding  = '10px;';
+  docList.style.top      = '-'+ (h + 50) + 'px';
 }
 
 function keyPressed(){
@@ -92,7 +94,6 @@ function openLocal(){
       tableRow = '',
       tableH   = '',
       tableF   = '';
-  docList.style.display = 'block';
 
   tableH = '<table>' +
            '<tr><th>Document title</th></tr>';
@@ -107,6 +108,8 @@ function openLocal(){
   }
 
   docList.innerHTML = tableH + tableRow + tableF;
+
+  docList.style.top = '10px';
 
 }
 
@@ -185,7 +188,7 @@ function loadDocument(docID){
   document.querySelector('.markdown').value = (content);
   document.querySelector('.documentName').innerHTML = title;
   window.sessionStorage.setItem('timestamp', timestamp);
-  docList.style.display = 'none';
+  docList.style.top = '-'+ (document.body.offsetHeight + 50) + 'px';
 }
 
 function clearText(e){
